@@ -1,0 +1,18 @@
+{# The DS 2509 site's Modified user Page #}
+{# Inherit code from the base template #}
+
+{% extends 'base.html' %}
+
+{# specify the page title #}
+{% block page_title %} User {% endblock page_title %}
+{% block page_heading %} Welcome to the DS 2509 Modified User page 💫🎊🍸🍹 {% endblock page_heading %}
+
+{% block page_content %}
+    {# Greet user if username variable exists(When passed when on page load) #}
+    {% if username %}
+        <h2>Hello {{username|upper}} from Flask!!</h2>
+    {% else %}
+    <h2>Hello Guest!</h2>
+    {% endif %}
+
+{% endblock page_content %}

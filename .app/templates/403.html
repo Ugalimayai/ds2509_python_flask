@@ -1,0 +1,14 @@
+{# The DS 2509 site's client Forbidden Page #}
+{# Inherit code from the base template #}
+
+{% extends 'base.html' %}
+
+{# specify the page title #}
+{% block page_title %} 403 Forbidden {% endblock page_title %}
+{% block page_heading %} 403 Forbidden {% endblock page_heading %}
+
+{% block page_content %}
+    <p><strong>Access Denied:</strong> Unfortunately you don&rsquo;t have permission to access/view this page <br/></p>
+    {#Redirect the user to the site's Home page#}
+    <a href="{{ url_for('index') }}">Return to home</a>
+{% endblock page_content %}

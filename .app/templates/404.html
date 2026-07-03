@@ -1,0 +1,14 @@
+{# The DS 2509 site's client 404 Page not found #}
+{# Inherit code from the base template #}
+
+{% extends 'base.html' %}
+
+{# specify the page title #}
+{% block page_title %} 404 Page Not Found {% endblock page_title %}
+{% block page_heading %} 404 Page Not Found {% endblock page_heading %}
+
+{% block page_content %}
+    <p>Sorry, unfortunately the page you&rsquo;re looking for was not found on this site. <br/>Kindly check the address for spelling mistakes.</p>
+    {#Redirect the user to the site's Home page#}
+    <a href="{{ url_for('index') }}">Return to home</a>
+{% endblock page_content %}

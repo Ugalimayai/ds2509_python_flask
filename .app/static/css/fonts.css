@@ -1,0 +1,42 @@
+
+
+/*Link to the caviar dreams font face*/
+@font-face {
+    font-family: 'caviar_dreamsregular';
+    src:url('../webfonts/caviar_dreams/caviar_dreams.woff2') format('woff2'),
+        url('../webfonts/caviar_dreams/caviar_dreams.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+
+}
+
+/*Link to the Arimo font face*/
+@font-face {
+    font-family: 'Arimo';
+    src: url('../webfonts/arimo/Arimo-Regular.woff') format('woff'),
+         url('../webfonts/arimo/Arimo-Medium.woff') format('woff'),
+         url('../webfonts/arimo/Arimo-SemiBold.woff') format('woff'),
+         url('../webfonts/arimo/Arimo-VariableFont_wght.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/*Link to the Limelight font face*/
+@font-face {
+    font-family: 'limelightregular';
+    src: url('../webfonts/limelight/Limelight-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/*Link to the Aboretto font family*/
+@font-face {
+    font-family: 'aboretto';
+    src: url('../webfonts/aboreto/Aboreto-Regular.woff') format('woff'),
+         url('../webfonts/aboreto/Aboreto-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+
+}
