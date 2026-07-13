@@ -1,0 +1,39 @@
+{# The DS 2509 site's Login/sign-in Page #}
+{# Inherit code from the base template #}
+
+{% extends 'base.html' %}
+
+{# specify the page title #}
+{% block page_title %} Login {% endblock page_title %}
+{% block page_heading %} Welcome to the DS 2509 Login/Sign-in Page {% endblock page_heading %}
+
+{% block page_content %}
+    <div id="container">
+        {# Login/sign-in Form #}
+        <form id="frmLogin" method="post" action="">
+            {{ form.hidden_tag() }} {# Our site's CSRF token#}
+            <fieldset>
+                <legend>Login Details</legend>
+                <div class="mb-3">
+                    {{ form.email.label(class="form-label") }}<br>
+                    {{ form.email(class="form-control") }}
+                </div>
+                <div class="mb-3">
+                    {{ form.password.label(class="form-label") }}<br>
+                    {{ form.password(class="form-control") }}
+                </div>
+
+
+            </fieldset><br/>
+            {# Submit button #}
+            <div class="mb-3">
+                    {{ form.submit.label(class="btn btn-primary") }}
+                </div>
+        </form>
+        <div>
+            {# Add link to registration page when user is not already registered #}
+            <p>Don&rsquo;t have an account?<a href="{{ url_for('signup') }}">Register/Sign Up</a> </p>
+        </div>
+    </div>
+
+{% endblock page_content %}

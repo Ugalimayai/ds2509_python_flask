@@ -16,6 +16,12 @@ from datetime import datetime
 from flask_babel import Babel, format_datetime
 
 # -----------------------------------------------------------------------------------------------------------------
+# Import our custom modules
+# -----------------------------------------------------------------------------------------------------------------
+from sign_up import RegistrationForm
+from login import LoginForm
+
+# -----------------------------------------------------------------------------------------------------------------
 # Declare and create/instantiate the Flask object
 # -----------------------------------------------------------------------------------------------------------------
 
@@ -80,6 +86,22 @@ def show_time():
 @app.route('/user/<username>')
 def mod_user(username:str=None):
     return render_template('mod_user.html', username=username)
+
+# Route to the register/sign-up page
+@app.route('/sign-up', methods=['GET', 'POST'])
+@app.route('/register', methods=['GET', 'POST'])
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    form = RegistrationForm()
+    return render_template('sign_up.html', form=form)
+
+# Route to the login page
+@app.route('/login', methods=['GET', 'POST'])
+@app.route('/signin', methods=['GET', 'POST'])
+@app.route('/sign-in', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    return render_template('login.html', form=form)
 
 
 # #Code to simulate an internal server error by raising an exception

@@ -1,0 +1,67 @@
+{# The DS 2509 site's Registration/Sign-up Page #}
+{# Inherit code from the base template #}
+
+{% extends 'base.html' %}
+
+{# specify the page title #}
+{% block page_title %} Sign up {% endblock page_title %}
+
+{% block page_heading %} Welcome to the DS 2509 Registration page {% endblock page_heading %}
+
+{% block page_content %}
+{# TODO: Flash Message #}
+
+    <div id="container">
+        {# Registration/Sign-up Form #}
+        <form id="frmRegister" method="post" action="">
+            {{ form.hidden_tag() }} {# Our site's CSRF token#}
+            <fieldset>
+                <legend>Personal Details</legend>
+                <div class="mb-3">
+                    {{ form.names.label(class="form-label") }}<br>
+                    {{ form.names(class="form-control") }}
+                </div>
+                <div class="mb-3">
+                    {{ form.birthdate.label(class="form-label") }}<br>
+                    {{ form.birthdate(class="form-control") }}
+                </div>
+                <div class="mb-3">
+                    {{ form.gender.label(class="form-label") }}
+                    {% for subfield in form.gender %}
+                        <div class="form-check">
+                            {{ subfield(class="form-check-input") }}
+                            {{ subfield.label(class="form-check-label") }}
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="mb-3">
+                    {{ form.phone.label(class="form-label") }}<br>
+                    {{ form.phone(class="form-control") }}
+                </div>
+                <div class="mb-3">
+                    {{ form.email.label(class="form-label") }}<br>
+                    {{ form.email(class="form-control") }}
+                </div>
+                <div class="mb-3">
+                    {{ form.password.label(class="form-label") }}<br>
+                    {{ form.password(class="form-control") }}
+                </div>
+                <div class="mb-3">
+                    {{ form.confirm_password.label(class="form-label") }}<br>
+                    {{ form.confirm_password(class="form-control") }}
+                </div>
+
+            </fieldset><br/>
+            {# Submit and reset buttons #}
+            <div class="mb-3">
+                    {{ form.submit.label(class="btn btn-primary") }}<br>
+                    {{ form.reset(class="btn btn-secondary") }}
+                </div>
+        </form>
+        <div>
+            {# TODO: Add link to login page when user is already registered #}
+            <p>Already have an account?<a href="{{ url_for('login') }}">Login</a> </p>
+        </div>
+    </div>
+
+{% endblock page_content %}
