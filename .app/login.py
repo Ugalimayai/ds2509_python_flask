@@ -9,11 +9,11 @@ Date: 04-July-2026
 from flask_wtf import FlaskForm
 from wtforms import StringField, BooleanField
 from wtforms import EmailField, PasswordField, TelField, SubmitField
-from wtforms.validators import DataRequired, Email, EqualTo, Length
+from wtforms.validators import DataRequired, EqualTo, Length
 
 # Declare the RegistrationForm class
 class LoginForm(FlaskForm):
-    email = EmailField('Email', validators=[DataRequired(), Email()],
+    email = EmailField('Email', validators=[DataRequired()],
                        render_kw={'placeholder': 'me@email.com',
                                   'title': 'Please enter your email',
                                   'tabindex': 10})

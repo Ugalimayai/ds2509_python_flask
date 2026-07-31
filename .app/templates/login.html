@@ -8,6 +8,19 @@
 {% block page_heading %} Welcome to the DS 2509 Login/Sign-in Page {% endblock page_heading %}
 
 {% block page_content %}
+{# Flash Message #}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% endwith %}
+
     <div id="container">
         {# Login/sign-in Form #}
         <form id="frmLogin" method="post" action="">
@@ -27,7 +40,7 @@
             </fieldset><br/>
             {# Submit button #}
             <div class="mb-3">
-                    {{ form.submit.label(class="btn btn-primary") }}
+                    {{ form.submit(class="btn btn-primary") }}
                 </div>
         </form>
         <div>

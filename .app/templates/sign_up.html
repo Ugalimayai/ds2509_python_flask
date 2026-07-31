@@ -9,7 +9,17 @@
 {% block page_heading %} Welcome to the DS 2509 Registration page {% endblock page_heading %}
 
 {% block page_content %}
-{# TODO: Flash Message #}
+{# Flash Message(s) #}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"/>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
 
     <div id="container">
         {# Registration/Sign-up Form #}
@@ -54,12 +64,12 @@
             </fieldset><br/>
             {# Submit and reset buttons #}
             <div class="mb-3">
-                    {{ form.submit.label(class="btn btn-primary") }}<br>
+                    {{ form.submit(class="btn btn-primary") }}<br>
                     {{ form.reset(class="btn btn-secondary") }}
                 </div>
         </form>
         <div>
-            {# TODO: Add link to login page when user is already registered #}
+            {# Link to login page when user is already registered #}
             <p>Already have an account?<a href="{{ url_for('login') }}">Login</a> </p>
         </div>
     </div>

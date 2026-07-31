@@ -89,13 +89,13 @@ class UserRole(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     role_id = db.Column(db.Integer, db.ForeignKey('role.id'), nullable=False)
     assigned_at = db.Column(db.DateTime, default=datetime.now(timezone.utc))
-    assigned_by = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    assigned_by = db.Column(db.Integer, db.ForeignKey('user.id'))
     expires_at = db.Column(db.DateTime)
     is_active = db.Column(db.Boolean, default=True)
 
     # Link/Create relationships to the users and roles tables
-    user = db.relationship('User', foreign_keys=[user_id], backref=db.backref('user_role', lazy='true', cascade='all, delete-orphan'))
-    role = db.relationship('Role', foreign_keys=[role_id], backref= db.backref('user_role', lazy='true', cascade='all, delete-orphan'))
+    user = db.relationship('User', foreign_keys=[user_id], backref=db.backref('user_role', lazy=True, cascade='all, delete-orphan'))
+    role = db.relationship('Role', foreign_keys=[role_id], backref= db.backref('user_role', lazy=True, cascade='all, delete-orphan'))
 
     # Method to return a string rep of the user-role object
     def __repr__(self):
@@ -112,4 +112,8 @@ class Product(db.Model):
     def __repr__(self):
         return f"Product ID: {self.id}, Name: {self.name}, Price: {self.price}"
 
-# TODO: Function to create the above tables in the db and populate with data
+
+def init_db(app) -> None:
+    db.init_app(app)
+    with app.app_context():
+        db.create_all()

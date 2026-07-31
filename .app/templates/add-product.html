@@ -1,0 +1,29 @@
+{# The DS 2509 site's Add Product Page (Only accessible to admins & Managers) #}
+{# Inherit code from the base template #}
+
+{% extends 'base.html' %}
+
+{# specify the page title #}
+{% block page_title %} Add Product {% endblock page_title %}
+{% block page_heading %} Add products to catalogue {% endblock page_heading %}
+
+{% block page_content %}
+    {# Form to add new product to our catalogue#}
+    <form method="POST" id="frmAddProduct" name="frmAddProduct">
+    {# Our sites CSRF protection #}
+    {{ form.hidden_tag() }}
+    <p>
+        <label for="name">Product Name:<span class="required-field">*</span> </label><br>
+        {{ form.name.(class="form-control") }}
+    </p>
+    <p>
+        <label for="name">Product Price:<span class="required-field">*</span> </label><br>
+        {{ form.name.(class="form-control") }}
+    </p>
+    <button type="submit" class="btn btn-primary">Add Product</button>
+
+    </form><br/>
+    {# Link back to our product listing page #}
+    <a href="{{ url_for('products') }}" class="btn btn-primary">Back to product list</a>
+
+{% endblock page_content %}
