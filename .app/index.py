@@ -18,6 +18,9 @@ from typing import Optional
 # Import modules for localisation
 from flask_babel import Babel, format_datetime
 
+# Import the web socket modules
+from flask_socketio import SocketIO, emit
+
 # -----------------------------------------------------------------------------------------------------------------
 # Import our custom modules
 # -----------------------------------------------------------------------------------------------------------------
@@ -25,7 +28,7 @@ from sign_up import RegistrationForm
 from login import LoginForm
 from user_form import UserForm
 from product_form import ProductForm
-
+from tasks import tasks as task_list
 # -----------------------------------------------------------------------------------------------------------------
 # Import our database modules
 # -----------------------------------------------------------------------------------------------------------------
@@ -38,6 +41,9 @@ from wtforms.validators import Optional
 # -----------------------------------------------------------------------------------------------------------------
 
 app = Flask(__name__)
+
+# Add socket functionality
+socketio = SocketIO(app)
 
 # Set our application configurations
 # Configuration 1. Add the configurations for supported languages
@@ -160,9 +166,19 @@ def show_time():
     formatted_time = format_datetime(current_time, format='full') #format the time to a human readable style
     return render_template('localised-time.html', current_time=formatted_time)
 
+#Route to the sockets page
+@app.route('/sockets')
+def sockets():
+    return render_template('sockets.html')
+
+@socketio.on("chat_message")
+def handle_message(message):
+    print(f"Received message: {message}")
+
+    #Send the message to all connected recipients
+    emit("chat_message", message, broadcast=True)
 
 # Route to the modified user page
-
 @app.route('/user')
 @app.route('/user/<username>')
 def mod_user(username:str=None):
@@ -345,8 +361,8 @@ def products():
     return render_template('products.html', products=products)
 
 #Route to the add products page
-@app.route('/add_products')
-def add_products():
+@app.route('/add_product')
+def add_product():
     form = ProductForm()
     if form.validate_on_submit():
         new_product = Product(
@@ -373,7 +389,7 @@ def edit_product(id):
         # Persist the new product details to the database
         db.session.commit()
         return redirect(url_for('products'))
-    return render_template('edit_product.html', form=form)
+    return render_template('edit-product.html', form=form)
 
 #Route to the delete products page
 @app.route('/delete_product/<string:id>', methods=['GET', 'POST'])
@@ -385,6 +401,17 @@ def delete_product(id):
         db.session.delete(product)
         db.session.commit()
     return redirect(url_for('products'))
+
+# Route to display the tasks page
+@app.route('/tasks', methods=['GET'])
+def view_tasks():
+    return render_template('tasks.html')
+
+# Route to get or fetch the list of to-do items/tasks
+@app.route('/get_tasks', methods=['GET'])
+def get_tasks():
+    return jsonify(task_list)
+
 
 # #Code to simulate an internal server error by raising an exception
 # @app.route('/trigger-500')

@@ -1,0 +1,39 @@
+{# The DS 2509 site's Sockets Page #}
+{# Inherit code from the base template #}
+
+{% extends 'base.html' %}
+
+{# specify the page title #}
+{% block page_title %} Sockets {% endblock page_title %}
+{% block page_heading %} Welcome to the Web Sockets Page 🔌 {% endblock page_heading %}
+
+{% block page_content %}
+    {# Input field where the user types messages for broadcasting #}
+    <input id="txtMessage" type="text" placeholder="Enter a message here..."/> &nbsp;&nbsp;
+    <button onclick="sendMessage()">Send Message</button>
+
+    {# Unordereed list to display the typed messages #}
+    <ul id="messages"></ul>
+
+    {# Javascript socket stript #}
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+
+    {# Script to get and display the contents of the input field #}
+    <script>
+        const socket = io.connect();
+
+        function sendMessage()
+        {
+            const input = document.getElementById('txtMessage');
+            socket.emit('chat_message', input.value);
+            input.value = '';
+        }
+        socket.on('chat_message', function(message){
+            const li = document.createElement('li');
+            li.textContent = message;
+            document.getElementById('messages').appendChild(li);
+        }
+        );
+    </script>
+
+{% endblock page_content %}

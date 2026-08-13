@@ -62,12 +62,19 @@ class User(db.Model, UserMixin):
             db.session.commit()
             return user
 
-        # Method to check where the user is an admin or manager
-        def is_admin_or_manager(user):
-            """Check if user is an administrator or manager"""
-            if not self.is_authenticated:
-                return False
-            return any(ur.role.name == 'Admin' for ur in self.role if ur.is_active)
+    # Method to check where the user is an admin or manager
+    def is_admin(self):
+        """Check if user is an administrator"""
+        if not self.is_authenticated:
+            return False
+        return any(ur.role.name == 'Admin' for ur in self.user_role if ur.is_active)
+
+    # Method to check where the user is an admin or manager
+    def is_admin_or_manager(self):
+        """Check if user is an administrator or manager"""
+        if not self.is_authenticated:
+            return False
+        return any(ur.role.name in ['Admin', 'Manager'] for ur in self.user_role if ur.is_active)
 
 # Define the Role class/model
 class Role(db.Model):

@@ -21,29 +21,24 @@ Python inheritance.
     </head>
     <body>
         {# Add the site's main navigation #}
-        <nav id="main-nav" aria-label="Main navigation">
-            <button id="menu-toggle" aria-label="Toggle Menu">
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-
-            </button>
+        <nav id="main-nav" class="main-nav" aria-label="Main navigation">
 
             <ul id="nav-list" class="nav-list">
                 <li><a href="{{ url_for('index') }}" class="nav-link">Home</a></li>
                 <li><a href="{{url_for('products') }}" class="nav-link">Products</a></li>
                 <li><a href="{{ url_for('show_time') }}" class="nav-link">Time</a></li>
+                <li><a href="{{ url_for('sockets') }}" class="nav-link">Sockets</a></li>
                 {# Conditional display of routes/links depending on whether the user is loggged in and their permission level #}
                 {% if current_user.is_authenticated %}
                     {#show admin/manager only links#}
-{#                    {% if current_user.is_admin_or_manager() %} #}
-{#                        <li><a href="{{url_for('add_product')}}" class="nav-link">Add Product</a> </li> #}
-{#                    {% endif %} #}
+                    {% if current_user.is_admin_or_manager() %}
+                        <li><a href="{{url_for('add_product')}}" class="nav-link">Add Product</a> </li>
+                    {% endif %}
 
                     {#show admin only links#}
-{#                    {% if current_user.is_admin() %} #}
-{#                        <li><a href="{{url_for('add_user')}}" class="nav-link">Add User</a> </li> #}
-{#                    {% endif %} #}
+                    {% if current_user.is_admin() %}
+                        <li><a href="{{url_for('add_user')}}" class="nav-link">Add User</a> </li>
+                    {% endif %}
                 {# Display the logout link#}
                     <li><a href="{{ url_for('logout') }}">Logout</a></li>
                 {% else %}
@@ -51,10 +46,11 @@ Python inheritance.
                     <li><a href="{{ url_for('login') }}" class="nav-link">Login</a></li>
                     <li><a href="{{ url_for('signup') }}" class="nav-link">Register</a></li>
                 {% endif %}
+                <li><a href="{{ url_for('view_tasks') }}" class="nav-link">Tasks</a></li>
 
             </ul>
 
-            <button class="nav-toggle" aria-label="Open Menu" aria-expanded="false" aria-controls="nav-list"><i class="bi bi-list"></i> </button>
+            <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-list"><i class="bi bi-list"></i></button>
 
         </nav>
         <div id="container">

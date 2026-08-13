@@ -1,0 +1,59 @@
+{# The DS 2509 user's tasks page #}
+{# Inherit code from the base template #}
+{% extends 'base.html' %}
+
+{# specify the page title #}
+{% block page_title %} Tasks API {% endblock page_title %}
+
+{# Optional scripts and/or styles #}
+{% block embed_style_or_script %}
+    {#  CSS Code to hide the table header #}
+    <style> #tasksTable thead {display: none;}</style>
+{% endblock embed_style_or_script %}
+
+
+
+{% block page_heading %} Fetch User Tasks Using an API {% endblock page_heading %}
+
+{% block page_content %}
+    <h2>Get All Tasks</h2>
+    <button id="getTasks">Get All Tasks</button>
+    <table id="tasksTable" class="data-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Task Name</th>
+                <th>Done</th>
+            </tr>
+        </thead>
+        <tbody id="tasksBody"></tbody>
+    </table>
+    {# JavaScript code to fetch/get the task details #}
+    <script>
+        // Constants to be used in the script
+        const getTasksButton = document.getElementById('getTasks');
+        const tasksTableHead = document.querySelector('#tasksTable thead');
+        const tasksTableBody = document.getElementById('tasksBody');
+
+        // Function to handle the button's click event
+        getTasksButton.addEventListener('click', () =>{
+            fetch('{{ url_for("get_tasks") }}')
+                .then(response => response.json())
+                .then( data => {
+                    tasksTableHead.style.display = 'table-header-group'; /* Show the
+                    table headers which were hidden using CSS in the html's document head section. */
+                    tasksTableBody.innerHTML = '';
+                    data.forEach(task => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                        <td>${task.id}</td>
+                        <td>${task.title}</td>
+                        <td><input type="checkbox" ${task.done ? 'checked' : ''} disabled/></td>
+                        `;
+                        //Add the row to the table's body
+                        tasksTableBody.appendChild(row);
+                    });
+                });
+        });
+    </script>
+{% endblock page_content %}
